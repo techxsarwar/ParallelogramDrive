@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings - ParallelogramDrive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed": "#001a42",
+                      "on-error": "#690005",
+                      "surface-container-highest": "#353534",
+                      "on-tertiary-container": "#f0dbff",
+                      "outline": "#958da2",
+                      "on-tertiary": "#490080",
+                      "inverse-primary": "#7423f0",
+                      "surface-bright": "#3a3939",
+                      "primary-fixed": "#eaddff",
+                      "on-tertiary-fixed": "#2c0051",
+                      "surface-variant": "#353534",
+                      "primary-fixed-dim": "#d2bbff",
+                      "surface-container-high": "#2a2a2a",
+                      "on-primary": "#3e008e",
+                      "tertiary-container": "#8b34d9",
+                      "on-surface": "#e5e2e1",
+                      "tertiary-fixed-dim": "#ddb7ff",
+                      "on-secondary": "#002e6a",
+                      "surface-dim": "#131313",
+                      "primary": "#d2bbff",
+                      "on-error-container": "#ffdad6",
+                      "primary-container": "#7b2ff7",
+                      "on-primary-fixed": "#25005a",
+                      "on-secondary-fixed-variant": "#004395",
+                      "background": "#131313",
+                      "on-primary-fixed-variant": "#5900c6",
+                      "error": "#ffb4ab",
+                      "surface-container-low": "#1c1b1b",
+                      "surface-tint": "#d2bbff",
+                      "on-tertiary-fixed-variant": "#6900b3",
+                      "secondary-fixed": "#d8e2ff",
+                      "on-background": "#e5e2e1",
+                      "surface": "#131313",
+                      "inverse-on-surface": "#313030",
+                      "tertiary-fixed": "#f0dbff",
+                      "on-secondary-container": "#e6ecff",
+                      "on-primary-container": "#ebddff",
+                      "surface-container-lowest": "#0e0e0e",
+                      "tertiary": "#ddb7ff",
+                      "surface-container": "#201f1f",
+                      "secondary-container": "#0566d9",
+                      "secondary": "#adc6ff",
+                      "on-surface-variant": "#ccc3d9",
+                      "secondary-fixed-dim": "#adc6ff",
+                      "outline-variant": "#4a4456",
+                      "inverse-surface": "#e5e2e1",
+                      "error-container": "#93000a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "unit": "4px",
+                      "margin-desktop": "48px",
+                      "max-width": "1440px"
+              },
+              "fontFamily": {
+                      "label-caps": ["JetBrains Mono"],
+                      "headline-lg-mobile": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "code-sm": ["JetBrains Mono"],
+                      "body-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "label-caps": ["11px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                      "code-sm": ["13px", {"lineHeight": "1.5", "fontWeight": "500"}],
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body {
+            background-color: #050505;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: #e5e2e1;
+            overflow-x: hidden;
+        }
+        
+        .glass-panel {
+            background: rgba(28, 27, 27, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glow-effect:hover {
+            box-shadow: 0 0 20px rgba(123, 47, 247, 0.3);
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+        }
+        
+        .input-glow:focus {
+            outline: none;
+            border-color: #d2bbff;
+            box-shadow: 0 0 10px rgba(210, 187, 255, 0.2);
+            border-bottom: 1px solid transparent;
+            border-image: linear-gradient(to right, #7b2ff7, #0566d9) 1;
+        }
+
+        .custom-switch {
+            appearance: none;
+            width: 36px;
+            height: 20px;
+            background: #2a2a2a;
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            outline: none;
+            border: 1px solid #4a4456;
+            transition: background 0.3s;
+        }
+
+        .custom-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 14px;
+            height: 14px;
+            background: #ccc3d9;
+            border-radius: 50%;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .custom-switch:checked {
+            background: rgba(123, 47, 247, 0.2);
+            border-color: #7b2ff7;
+        }
+
+        .custom-switch:checked::after {
+            transform: translateX(16px);
+            background: #d2bbff;
+            box-shadow: 0 0 8px #d2bbff;
+        }
+    </style>
+</head>
+<body class="flex flex-col md:flex-row h-screen font-body-sm text-body-sm">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex bg-surface-container-low/90 dark:bg-surface-container-low/90 backdrop-blur-2xl docked left-0 h-screen w-64 border-r border-outline/10 flat no shadows fixed left-0 top-0 flex-col py-6 overflow-y-auto">
+<div class="px-gutter mb-8">
+<div class="flex items-center gap-3">
+<img alt="System Status Indicator" class="w-8 h-8 rounded-full border border-primary/30" data-alt="A highly detailed close up of a glowing blue orb representing a digital network node, set against a dark obsidian background. The orb emits a soft, pulsing electric blue light that illuminates intricate circuit-like patterns etched into its surface. The aesthetic is high-tech, sleek, and mysterious, embodying the essence of a futuristic distributed infrastructure." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDofXXxJzc_xGfpWLA4cwCz94B3F-GQ7kLwDXuFz0rnPbv6MM-BwNiuQXtSvglBijcRgHyKRSCKMFcnKt2HKDZMqh8073UeUDD58uD380b1L_ExM7-JHOvecMgY43r6w2L1jzazBXuAuNGueriJKhYne1AJUuWErzSS6TUO-WMDsVkAh8MGI5_Q4LxHo5dVJzbUtYSWd4D8WD-jNHc0LB7wdvAhEPBlgoTNIb_0qwSpwpn9tos2H_dYgASgszNMchtUNiVhzvcsqGw"/>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tighter text-on-surface">Parallelogram</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">Distributed Network v1.0.4</p>
+</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors duration-200 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-weight="fill">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors duration-200 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-weight="fill">folder_shared</span>
+                File Manager
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors duration-200 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-weight="fill">hub</span>
+                Nodes
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors duration-200 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-weight="fill">query_stats</span>
+                Analytics
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors duration-200 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-weight="fill">share</span>
+                Sharing
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors duration-200 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-weight="fill">terminal</span>
+                Developer
+            </a>
+<a class="bg-primary-container/20 text-primary border-r-2 border-primary flex items-center gap-3 px-4 py-3 scale-98 transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-weight="fill">settings</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors duration-200 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-weight="fill">shield_person</span>
+                Admin
+            </a>
+</div>
+<div class="px-gutter mt-auto pt-6 border-t border-outline/10">
+<button class="w-full bg-primary-container text-on-primary-container py-2 rounded font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors glow-effect mb-4">
+                Upgrade Storage
+            </button>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-2 hover:bg-surface-container-high transition-colors duration-200 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+                Documentation
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-2 hover:bg-surface-container-high transition-colors duration-200 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 relative min-h-screen flex flex-col">
+<!-- TopAppBar (Mobile & Contextual Desktop) -->
+<header class="md:hidden bg-background/80 dark:bg-background/80 backdrop-blur-xl docked full-width top-0 z-50 shadow-[0_0_40px_rgba(123,47,247,0.1)] flex justify-between items-center px-gutter py-unit w-full max-w-max-width mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer">menu</span>
+<span class="font-display-lg text-display-lg bg-gradient-to-r from-primary to-tertiary bg-clip-text text-transparent text-[24px]">Parallelogram</span>
+</div>
+<div class="flex items-center gap-4 text-primary dark:text-primary">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-all duration-300">sensors</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-all duration-300">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-all duration-300">account_circle</span>
+</div>
+</header>
+<!-- Settings Content -->
+<div class="flex-1 p-margin-mobile md:p-margin-desktop overflow-y-auto">
+<div class="max-w-4xl mx-auto space-y-8">
+<div class="pb-4 border-b border-outline/10">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Settings</h2>
+<p class="text-on-surface-variant mt-2 font-body-sm text-body-sm">Manage your distributed infrastructure preferences.</p>
+</div>
+<!-- Bento Grid Layout for Settings -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Profile & Security (Span 8) -->
+<section class="glass-panel rounded-xl p-6 md:col-span-8 flex flex-col gap-6 glow-effect">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary">Account Profile</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm mt-1">Identity and cryptographic keys</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[32px]">fingerprint</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<img alt="User Profile Avatar" class="w-20 h-20 rounded-full border border-primary/30 object-cover" data-alt="A futuristic portrait of an individual illuminated by the glow of computer screens in a dark room. The lighting is dominated by deep purples and neon blues, creating a cyberpunk aesthetic. The subject is focused, suggesting a high-level developer interacting with a complex distributed network interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFM7VpdxKWX19rTLet4O00bT25gBkV1pBG9L8jOLLfpzHklie1xFToDPi3ViqmAo_rTVOKWPU9fsc5vTUO_Q94kPpKoIFah73fI3j8nMBjOHeyP3XAYd3c4ZW2kMh6jRF-u9zh29vRNPEUxD0eTJsiM4FG3Jb0w1g9_J8XEgmyNaOu9BE-UGQhvdHSDRhQVmLj1cn_ZDXY5XL7h8_yPjaUocgAaaMwleeJLUhlLZRHfFbN9F3vH5gWTHBb_WqNMVghP8AfxzYSrZg"/>
+<div class="absolute inset-0 bg-background/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined text-primary">edit</span>
+</div>
+</div>
+<div class="flex-1 space-y-3">
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-1">Node Alias</label>
+<input class="w-full bg-transparent border-b border-outline/30 pb-1 text-on-surface font-code-sm text-code-sm input-glow transition-all" type="text" value="Opus_Prime_09"/>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-outline/10">
+<h4 class="font-label-caps text-label-caps text-on-surface mb-3">Security Status</h4>
+<div class="flex items-center justify-between bg-surface-container/50 p-3 rounded-lg border border-outline/10">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-[#10b981] shadow-[0_0_8px_#10b981]"></div>
+<span class="font-code-sm text-code-sm text-on-surface">Biometric &amp; OTP Active</span>
+</div>
+<button class="text-primary font-label-caps text-label-caps hover:text-primary-fixed transition-colors">Manage</button>
+</div>
+</div>
+</section>
+<!-- Telegram Integration (Span 4) -->
+<section class="glass-panel rounded-xl p-6 md:col-span-4 flex flex-col gap-6 glow-effect">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-secondary">Telegram Link</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm mt-1">Bot Connection</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[32px]">send</span>
+</div>
+<div class="flex-1 flex flex-col justify-center">
+<div class="text-center mb-6">
+<div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-secondary-container/20 border border-secondary/30 mb-3">
+<span class="material-symbols-outlined text-secondary">link</span>
+</div>
+<p class="font-code-sm text-code-sm text-on-surface-variant">Connected to @ParallelBot</p>
+</div>
+<button class="w-full border border-secondary/50 text-secondary py-2 rounded font-label-caps text-label-caps hover:bg-secondary/10 transition-colors">
+                                Configure Channels
+                            </button>
+</div>
+</section>
+<!-- Storage Preferences (Span 12) -->
+<section class="glass-panel rounded-xl p-6 md:col-span-12 flex flex-col gap-6 glow-effect">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Storage &amp; Geography</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm mt-1">Redundancy levels and physical node distribution</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[32px]">database</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-3">Redundancy Level</label>
+<div class="space-y-3">
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="appearance-none w-4 h-4 rounded-full border border-outline checked:border-primary checked:border-[4px] transition-all bg-transparent" name="redundancy" type="radio"/>
+<span class="font-code-sm text-code-sm">Level 1 (Standard - 3 Nodes)</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input checked="" class="appearance-none w-4 h-4 rounded-full border border-outline checked:border-primary checked:border-[4px] transition-all bg-transparent shadow-[0_0_8px_rgba(123,47,247,0.5)]" name="redundancy" type="radio"/>
+<span class="font-code-sm text-code-sm text-primary">Level 2 (High Availability - 5 Nodes)</span>
+</label>
+</div>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-3">Geographical Distribution</label>
+<div class="h-24 bg-surface-container-lowest rounded border border-outline/10 relative overflow-hidden flex items-center justify-center">
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&amp;w=2574&amp;auto=format&amp;fit=crop')] bg-cover bg-center opacity-20 filter grayscale blur-[1px]" data-alt="A stylized, minimalist world map rendered in dark grays and blacks. Glowing nodes connected by thin, luminous lines stretch across the continents, illustrating a global distributed network. The aesthetic is highly technical, evoking a global data infrastructure control center."></div>
+<div class="relative z-10 flex gap-4">
+<span class="bg-surface-container/80 backdrop-blur px-2 py-1 rounded font-code-sm text-code-sm text-on-surface border border-outline/20">EU-West</span>
+<span class="bg-surface-container/80 backdrop-blur px-2 py-1 rounded font-code-sm text-code-sm text-on-surface border border-outline/20">US-East</span>
+<span class="bg-surface-container/80 backdrop-blur px-2 py-1 rounded font-code-sm text-code-sm text-on-surface border border-outline/20">AP-South</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Notifications (Span 6) -->
+<section class="glass-panel rounded-xl p-6 md:col-span-6 flex flex-col gap-6 glow-effect">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Notifications</h3>
+<span class="material-symbols-outlined text-outline-variant text-[24px]">notifications_active</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface">Node Sync Alerts</span>
+<input checked="" class="custom-switch" type="checkbox"/>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface">Security Breaches</span>
+<input checked="" class="custom-switch" type="checkbox"/>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface">Storage Quota Warnings</span>
+<input class="custom-switch" type="checkbox"/>
+</div>
+</div>
+</section>
+<!-- Theme Customization (Span 6) -->
+<section class="glass-panel rounded-xl p-6 md:col-span-6 flex flex-col gap-6 glow-effect">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Interface Theme</h3>
+<span class="material-symbols-outlined text-outline-variant text-[24px]">palette</span>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<button class="flex flex-col items-center gap-2 p-3 rounded-lg border border-primary bg-primary/10">
+<div class="w-6 h-6 rounded-full bg-primary shadow-[0_0_10px_#d2bbff]"></div>
+<span class="font-label-caps text-label-caps text-primary">Neon Purple</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-3 rounded-lg border border-outline/20 hover:border-outline/50 transition-colors">
+<div class="w-6 h-6 rounded-full bg-secondary"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Electric Blue</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-3 rounded-lg border border-outline/20 hover:border-outline/50 transition-colors">
+<div class="w-6 h-6 rounded-full bg-[#10b981]"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Emerald Green</span>
+</button>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+</body></html>

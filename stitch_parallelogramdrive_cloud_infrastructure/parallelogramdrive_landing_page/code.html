@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ParallelogramDrive | The Geometry of Infinite Storage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed": "#001a42",
+                      "on-error": "#690005",
+                      "surface-container-highest": "#353534",
+                      "on-tertiary-container": "#f0dbff",
+                      "outline": "#958da2",
+                      "on-tertiary": "#490080",
+                      "inverse-primary": "#7423f0",
+                      "surface-bright": "#3a3939",
+                      "primary-fixed": "#eaddff",
+                      "on-tertiary-fixed": "#2c0051",
+                      "surface-variant": "#353534",
+                      "primary-fixed-dim": "#d2bbff",
+                      "surface-container-high": "#2a2a2a",
+                      "on-primary": "#3e008e",
+                      "tertiary-container": "#8b34d9",
+                      "on-surface": "#e5e2e1",
+                      "tertiary-fixed-dim": "#ddb7ff",
+                      "on-secondary": "#002e6a",
+                      "surface-dim": "#131313",
+                      "primary": "#d2bbff",
+                      "on-error-container": "#ffdad6",
+                      "primary-container": "#7b2ff7",
+                      "on-primary-fixed": "#25005a",
+                      "on-secondary-fixed-variant": "#004395",
+                      "background": "#131313",
+                      "on-primary-fixed-variant": "#5900c6",
+                      "error": "#ffb4ab",
+                      "surface-container-low": "#1c1b1b",
+                      "surface-tint": "#d2bbff",
+                      "on-tertiary-fixed-variant": "#6900b3",
+                      "secondary-fixed": "#d8e2ff",
+                      "on-background": "#e5e2e1",
+                      "surface": "#131313",
+                      "inverse-on-surface": "#313030",
+                      "tertiary-fixed": "#f0dbff",
+                      "on-secondary-container": "#e6ecff",
+                      "on-primary-container": "#ebddff",
+                      "surface-container-lowest": "#0e0e0e",
+                      "tertiary": "#ddb7ff",
+                      "surface-container": "#201f1f",
+                      "secondary-container": "#0566d9",
+                      "secondary": "#adc6ff",
+                      "on-surface-variant": "#ccc3d9",
+                      "secondary-fixed-dim": "#adc6ff",
+                      "outline-variant": "#4a4456",
+                      "inverse-surface": "#e5e2e1",
+                      "error-container": "#93000a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "unit": "4px",
+                      "margin-desktop": "48px",
+                      "max-width": "1440px"
+              },
+              "fontFamily": {
+                      "label-caps": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "code-sm": [
+                              "JetBrains Mono"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "code-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #050505;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        .glass-panel {
+            background: rgba(28, 27, 27, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glow-effect:hover {
+            box-shadow: 0 0 30px rgba(123, 47, 247, 0.3);
+            transform: scale(1.02);
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(123, 47, 247, 0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .floating-shape {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-shape-delayed {
+            animation: float 8s ease-in-out infinite 2s;
+        }
+    </style>
+</head>
+<body class="text-on-background min-h-screen flex flex-col antialiased font-body-sm selection:bg-primary-container selection:text-white overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed w-full top-0 z-50 bg-background/80 dark:bg-background/80 backdrop-blur-xl shadow-[0_0_40px_rgba(123,47,247,0.1)] transition-transform border-b border-outline/10">
+<div class="flex justify-between items-center px-gutter py-unit w-full max-w-max-width mx-auto h-16">
+<div class="flex items-center gap-4">
+<span class="font-display-lg text-display-lg bg-gradient-to-r from-primary to-tertiary bg-clip-text text-transparent text-[24px]">Parallelogram</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all duration-300" href="#">Infrastructure</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all duration-300" href="#">Pricing</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all duration-300" href="#">Documentation</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">sensors</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="bg-primary-container text-white px-4 py-2 rounded font-body-sm text-body-sm hover:bg-inverse-primary transition-colors glow-effect">
+                    Launch Console
+                </button>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-24 pb-12 px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto w-full relative z-10">
+<!-- Hero Section -->
+<section class="relative min-h-[819px] flex flex-col justify-center items-center text-center py-20">
+<div class="hero-glow"></div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel mb-8 border border-primary/30 text-primary font-label-caps text-label-caps">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                v1.0.4 Network is Live
+            </div>
+<h1 class="font-display-lg text-display-lg md:text-[72px] mb-6 max-w-4xl tracking-tighter bg-gradient-to-b from-white to-on-surface-variant bg-clip-text text-transparent">
+                The Geometry of <br/> <span class="text-primary-container">Infinite Storage</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-12">
+                Distributed infrastructure secured by Telegram. ParallelogramDrive fractures your data across a resilient, encrypted grid, rendering traditional server architecture obsolete.
+            </p>
+<div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+<button class="bg-primary-container text-white px-8 py-4 rounded-lg font-headline-md text-headline-md text-[16px] glow-effect flex items-center justify-center gap-2">
+                    Start Storing
+                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<button class="glass-panel text-on-surface px-8 py-4 rounded-lg font-headline-md text-headline-md text-[16px] hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2">
+                    Explore Infrastructure
+                </button>
+</div>
+<!-- Abstract Graphic Representation -->
+<div class="mt-24 relative w-full max-w-5xl h-64 md:h-96">
+<!-- Node Grid visualization -->
+<div class="absolute inset-0 grid grid-cols-6 md:grid-cols-12 gap-4 opacity-20">
+<!-- Repeated grid items for texture -->
+<div class="border border-outline/30 rounded-sm"></div><div class="border border-outline/30 rounded-sm"></div><div class="border border-outline/30 rounded-sm"></div><div class="border border-outline/30 rounded-sm"></div><div class="border border-outline/30 rounded-sm"></div><div class="border border-outline/30 rounded-sm bg-primary/10"></div>
+<div class="border border-outline/30 rounded-sm"></div><div class="border border-outline/30 rounded-sm"></div><div class="border border-outline/30 rounded-sm bg-tertiary/10"></div><div class="border border-outline/30 rounded-sm"></div><div class="border border-outline/30 rounded-sm"></div><div class="border border-outline/30 rounded-sm"></div>
+</div>
+<!-- Floating Elements -->
+<div class="absolute top-1/4 left-1/4 w-32 h-32 border-2 border-primary/50 transform -skew-x-12 floating-shape shadow-[0_0_30px_rgba(123,47,247,0.2)] bg-background/50 backdrop-blur-md flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-4xl">hub</span>
+</div>
+<div class="absolute top-1/2 right-1/3 w-24 h-24 border border-tertiary/40 transform skew-x-12 floating-shape-delayed shadow-[0_0_20px_rgba(139,52,217,0.2)] bg-background/50 backdrop-blur-md flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-2xl">folder_shared</span>
+</div>
+<div class="absolute bottom-1/4 right-1/4 w-40 h-40 border-l-2 border-b-2 border-secondary/30 transform rotate-45 floating-shape shadow-[0_0_40px_rgba(5,102,217,0.1)] flex items-center justify-center">
+</div>
+</div>
+</section>
+<!-- Features Grid -->
+<section class="py-24">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg md:text-[40px] mb-4">Architectural Supremacy</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Engineered for cryptographic resilience and unparalleled latency.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Feature 1 -->
+<div class="glass-panel p-8 rounded-xl glow-effect flex flex-col group relative overflow-hidden">
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container/10 rounded-full blur-2xl group-hover:bg-primary-container/20 transition-all"></div>
+<span class="material-symbols-outlined text-primary text-[32px] mb-6">hub</span>
+<h3 class="font-headline-md text-headline-md mb-3 text-on-surface">Distributed Nodes</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                        Data is sharded and distributed across a global network of autonomous nodes, ensuring absolute redundancy and eliminating single points of failure.
+                    </p>
+</div>
+<!-- Feature 2 -->
+<div class="glass-panel p-8 rounded-xl glow-effect flex flex-col group relative overflow-hidden">
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-secondary-container/10 rounded-full blur-2xl group-hover:bg-secondary-container/20 transition-all"></div>
+<span class="material-symbols-outlined text-secondary text-[32px] mb-6">send</span>
+<h3 class="font-headline-md text-headline-md mb-3 text-on-surface">Telegram-Powered</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                        Leveraging Telegram's ultra-fast backend protocol for instant synchronization and unbreachable end-to-end encryption layers.
+                    </p>
+</div>
+<!-- Feature 3 -->
+<div class="glass-panel p-8 rounded-xl glow-effect flex flex-col group relative overflow-hidden">
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-tertiary-container/10 rounded-full blur-2xl group-hover:bg-tertiary-container/20 transition-all"></div>
+<span class="material-symbols-outlined text-tertiary text-[32px] mb-6">terminal</span>
+<h3 class="font-headline-md text-headline-md mb-3 text-on-surface">Developer Native</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                        Access infrastructure via robust REST APIs and SDKs. Built for CLI environments with mathematical precision and comprehensive documentation.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Pricing -->
+<section class="py-24 border-t border-outline/10">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg md:text-[40px] mb-4">Scalable Topology</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Transparent metrics for distributed operations.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+<!-- Lite -->
+<div class="glass-panel rounded-xl p-8 flex flex-col border-t-2 border-t-outline/20">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-2">LITE TIER</h3>
+<div class="font-display-lg text-display-lg mb-6">$0<span class="text-[20px] text-on-surface-variant font-normal">/mo</span></div>
+<ul class="space-y-4 mb-8 flex-grow">
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-outline">check</span>
+                            100GB Distributed Storage
+                        </li>
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-outline">check</span>
+                            Standard Latency
+                        </li>
+</ul>
+<button class="w-full py-3 rounded border border-outline/30 font-body-sm text-body-sm hover:bg-surface-container-high transition-colors">Start Free</button>
+</div>
+<!-- Pro -->
+<div class="glass-panel rounded-xl p-8 flex flex-col border-t-2 border-t-primary relative transform md:-translate-y-4 shadow-[0_0_40px_rgba(123,47,247,0.15)]">
+<div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary-container text-white px-3 py-1 rounded-full font-label-caps text-label-caps text-[10px]">RECOMMENDED</div>
+<h3 class="font-label-caps text-label-caps text-primary mb-2">PRO TIER</h3>
+<div class="font-display-lg text-display-lg mb-6">$12<span class="text-[20px] text-on-surface-variant font-normal">/mo</span></div>
+<ul class="space-y-4 mb-8 flex-grow">
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-primary">check</span>
+                            2TB Encrypted Storage
+                        </li>
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-primary">check</span>
+                            High-Speed Node Routing
+                        </li>
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-primary">check</span>
+                            API Access
+                        </li>
+</ul>
+<button class="w-full py-3 rounded bg-primary-container text-white font-body-sm text-body-sm hover:bg-inverse-primary transition-colors glow-effect">Upgrade to Pro</button>
+</div>
+<!-- Infrastructure -->
+<div class="glass-panel rounded-xl p-8 flex flex-col border-t-2 border-t-secondary/50">
+<h3 class="font-label-caps text-label-caps text-secondary mb-2">INFRASTRUCTURE</h3>
+<div class="font-headline-lg text-headline-lg mb-6">Custom</div>
+<ul class="space-y-4 mb-8 flex-grow">
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-secondary">check</span>
+                            Unlimited Scale
+                        </li>
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-secondary">check</span>
+                            Dedicated Node Clusters
+                        </li>
+<li class="flex items-start gap-3 font-body-sm text-body-sm text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-secondary">check</span>
+                            SLA Guarantees
+                        </li>
+</ul>
+<button class="w-full py-3 rounded border border-outline/30 font-body-sm text-body-sm hover:bg-surface-container-high transition-colors">Contact Sales</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="relative w-full py-12 bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline/10 z-10">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-max-width mx-auto gap-gutter">
+<div class="font-label-caps text-label-caps text-on-surface-variant">
+                © 2024 ParallelogramDrive. Distributed Infrastructure secured by Telegram.
+            </div>
+<nav class="flex flex-wrap gap-6 justify-center md:justify-end">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Network Status</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">API Docs</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">GitHub</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+</nav>
+</div>
+</footer>
+</body></html>

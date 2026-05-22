@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Panel | ParallelogramDrive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#001a42",
+                    "on-error": "#690005",
+                    "surface-container-highest": "#353534",
+                    "on-tertiary-container": "#f0dbff",
+                    "outline": "#958da2",
+                    "on-tertiary": "#490080",
+                    "inverse-primary": "#7423f0",
+                    "surface-bright": "#3a3939",
+                    "primary-fixed": "#eaddff",
+                    "on-tertiary-fixed": "#2c0051",
+                    "surface-variant": "#353534",
+                    "primary-fixed-dim": "#d2bbff",
+                    "surface-container-high": "#2a2a2a",
+                    "on-primary": "#3e008e",
+                    "tertiary-container": "#8b34d9",
+                    "on-surface": "#e5e2e1",
+                    "tertiary-fixed-dim": "#ddb7ff",
+                    "on-secondary": "#002e6a",
+                    "surface-dim": "#131313",
+                    "primary": "#d2bbff",
+                    "on-error-container": "#ffdad6",
+                    "primary-container": "#7b2ff7",
+                    "on-primary-fixed": "#25005a",
+                    "on-secondary-fixed-variant": "#004395",
+                    "background": "#131313",
+                    "on-primary-fixed-variant": "#5900c6",
+                    "error": "#ffb4ab",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-tint": "#d2bbff",
+                    "on-tertiary-fixed-variant": "#6900b3",
+                    "secondary-fixed": "#d8e2ff",
+                    "on-background": "#e5e2e1",
+                    "surface": "#131313",
+                    "inverse-on-surface": "#313030",
+                    "tertiary-fixed": "#f0dbff",
+                    "on-secondary-container": "#e6ecff",
+                    "on-primary-container": "#ebddff",
+                    "surface-container-lowest": "#0e0e0e",
+                    "tertiary": "#ddb7ff",
+                    "surface-container": "#201f1f",
+                    "secondary-container": "#0566d9",
+                    "secondary": "#adc6ff",
+                    "on-surface-variant": "#ccc3d9",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "outline-variant": "#4a4456",
+                    "inverse-surface": "#e5e2e1",
+                    "error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "unit": "4px",
+                    "margin-desktop": "48px",
+                    "max-width": "1440px"
+            },
+            "fontFamily": {
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "code-sm": ["JetBrains Mono"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-caps": ["11px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                    "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                    "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                    "code-sm": ["13px", { "lineHeight": "1.5", "fontWeight": "500" }],
+                    "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                    "body-lg": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                    "headline-md": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                    "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .math-grid {
+            background-image: 
+                linear-gradient(to right, rgba(149, 141, 162, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(149, 141, 162, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .glass-panel {
+            @apply bg-surface-container-low/60 backdrop-blur-xl border border-outline/10;
+        }
+        .glow-active {
+            box-shadow: 0 0 24px -4px rgba(123, 47, 247, 0.25);
+        }
+        .progress-glow {
+            box-shadow: 0 0 12px 0 rgba(123, 47, 247, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-lg min-h-screen flex selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar -->
+<nav class="hidden md:flex bg-surface-container-low/90 dark:bg-surface-container-low/90 backdrop-blur-2xl docked left-0 h-screen w-64 border-r border-outline/10 flat no shadows fixed left-0 top-0 h-full flex-col py-6 overflow-y-auto z-50">
+<div class="px-gutter mb-8">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-primary-container to-tertiary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">hub</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tighter text-on-surface">Parallelogram</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-70 mt-1">Distributed Network v1.0.4</p>
+</div>
+</div>
+</div>
+<div class="flex-1 px-4 space-y-1 font-label-caps text-label-caps">
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">dashboard</span>Dashboard
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">folder_shared</span>File Manager
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">hub</span>Nodes
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">query_stats</span>Analytics
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">share</span>Sharing
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">terminal</span>Developer
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high transition-colors duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">settings</span>Settings
+            </a>
+<a class="bg-primary-container/20 text-primary border-r-2 border-primary flex items-center gap-3 px-4 py-3 Active: scale-98 transition-all rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shield_person</span>Admin
+            </a>
+</div>
+<div class="px-4 mt-auto space-y-4">
+<button class="w-full bg-primary-container text-on-primary-container font-label-caps text-label-caps py-3 rounded-lg hover:bg-primary transition-colors duration-200 glow-active flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">upgrade</span> Upgrade Storage
+            </button>
+<div class="pt-4 border-t border-outline/10 space-y-1 font-label-caps text-label-caps">
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-2 hover:bg-surface-container-high transition-colors duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">menu_book</span>Documentation
+                </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-2 hover:bg-surface-container-high transition-colors duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">contact_support</span>Support
+                </a>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<div class="flex-1 md:ml-64 flex flex-col min-h-screen relative w-full overflow-hidden">
+<!-- Mathematical Grid Background -->
+<div class="absolute inset-0 math-grid pointer-events-none opacity-50"></div>
+<!-- TopAppBar -->
+<header class="bg-background/80 dark:bg-background/80 backdrop-blur-xl text-primary dark:text-primary docked full-width top-0 z-50 border-b border-outline/10 shadow-[0_0_40px_rgba(123,47,247,0.1)] flex justify-between items-center px-gutter py-unit w-full max-w-max-width mx-auto h-16 sticky">
+<!-- Search on Left -->
+<div class="flex-1 max-w-md relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container/50 border border-outline/20 rounded-full py-2 pl-10 pr-4 font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all bg-transparent" placeholder="Search global users, nodes, or logs..." type="text"/>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-all duration-300 scale-102 hover:shadow-[0_0_20px_rgba(123,47,247,0.2)] hover:bg-surface-container-high rounded-full p-2">
+<span class="material-symbols-outlined">sensors</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-all duration-300 scale-102 hover:shadow-[0_0_20px_rgba(123,47,247,0.2)] hover:bg-surface-container-high rounded-full p-2 relative">
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full progress-glow"></span>
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-all duration-300 scale-102 hover:shadow-[0_0_20px_rgba(123,47,247,0.2)] hover:bg-surface-container-high rounded-full p-2">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Dashboard Content -->
+<main class="flex-1 p-gutter md:p-margin-desktop z-10 max-w-max-width mx-auto w-full space-y-gutter relative">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Command Center</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 max-w-2xl">Global infrastructure monitoring, abuse detection, and user quota management.</p>
+</div>
+<div class="flex items-center gap-2 font-label-caps text-label-caps text-primary bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20 glow-active">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                    SYSTEM HEALTH: OPTIMAL
+                </div>
+</div>
+<!-- Dense Metrics Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Metric 1 -->
+<div class="glass-panel rounded-xl p-5 flex flex-col gap-2 relative overflow-hidden group hover:glow-active transition-all duration-300">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">group</span> Total Users
+                    </span>
+<div class="font-display-lg text-display-lg text-on-surface mt-1">2.4M</div>
+<div class="font-body-sm text-body-sm text-secondary flex items-center gap-1 mt-auto">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +12% this week
+                    </div>
+</div>
+<!-- Metric 2 -->
+<div class="glass-panel rounded-xl p-5 flex flex-col gap-2 relative overflow-hidden group hover:glow-active transition-all duration-300">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-tertiary-container/10 rounded-full blur-2xl group-hover:bg-tertiary-container/20 transition-all"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">hard_drive_2</span> Global Storage
+                    </span>
+<div class="font-display-lg text-display-lg text-on-surface mt-1">48<span class="text-headline-md text-on-surface-variant">PB</span></div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-tertiary w-[78%] progress-glow"></div>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mt-1 text-right">78% CAPACITY</div>
+</div>
+<!-- Metric 3 -->
+<div class="glass-panel rounded-xl p-5 flex flex-col gap-2 relative overflow-hidden group hover:glow-active transition-all duration-300">
+<span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">hub</span> Active Nodes
+                    </span>
+<div class="font-display-lg text-display-lg text-on-surface mt-1">8,092</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-auto flex items-center gap-2">
+                        Uptime: <span class="text-primary font-code-sm">99.998%</span>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="glass-panel rounded-xl p-5 flex flex-col gap-2 relative overflow-hidden group hover:glow-active transition-all duration-300">
+<span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">account_balance_wallet</span> Net Revenue (30d)
+                    </span>
+<div class="font-display-lg text-display-lg text-on-surface mt-1">$1.2<span class="text-headline-md text-on-surface-variant">M</span></div>
+<div class="font-body-sm text-body-sm text-secondary flex items-center gap-1 mt-auto">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +4.3% YoY
+                    </div>
+</div>
+</div>
+<!-- Bento Grid: Infra & Abuse -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Infrastructure Health -->
+<div class="lg:col-span-2 glass-panel rounded-xl p-6 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">monitoring</span> API Latency &amp; Health
+                        </h3>
+<div class="flex gap-2">
+<button class="px-3 py-1 bg-surface-container rounded-md font-label-caps text-label-caps text-on-surface hover:bg-surface-container-highest transition-colors">1H</button>
+<button class="px-3 py-1 bg-primary/20 text-primary border border-primary/30 rounded-md font-label-caps text-label-caps transition-colors">24H</button>
+</div>
+</div>
+<!-- Holographic Graph Placeholder (CSS rendering) -->
+<div class="flex-1 w-full bg-surface-container-highest/20 rounded-lg border border-outline/5 relative overflow-hidden min-h-[200px] flex items-end">
+<div class="absolute bottom-0 left-0 w-full h-[60%] bg-gradient-to-t from-primary/10 to-transparent"></div>
+<!-- Graph Line via SVG logic simulation -->
+<svg class="absolute inset-0 w-full h-full preserve-3d" preserveaspectratio="none" viewbox="0 0 100 100">
+<path class="drop-shadow-[0_0_8px_rgba(123,47,247,0.8)]" d="M0,80 L10,75 L20,85 L30,60 L40,65 L50,40 L60,50 L70,30 L80,35 L90,15 L100,20" fill="none" stroke="var(--tw-colors-primary)" stroke-width="0.5"></path>
+<circle class="animate-pulse drop-shadow-[0_0_10px_rgba(123,47,247,1)]" cx="90" cy="15" fill="var(--tw-colors-primary)" r="1.5"></circle>
+</svg>
+<!-- Grid lines -->
+<div class="absolute inset-0 flex flex-col justify-between opacity-10 pointer-events-none">
+<div class="border-b border-outline/50 w-full h-0"></div>
+<div class="border-b border-outline/50 w-full h-0"></div>
+<div class="border-b border-outline/50 w-full h-0"></div>
+<div class="border-b border-outline/50 w-full h-0"></div>
+</div>
+</div>
+<div class="flex justify-between mt-4 font-code-sm text-code-sm text-on-surface-variant">
+<span>Telegram API: <span class="text-primary">42ms</span></span>
+<span>Routing: <span class="text-primary">12ms</span></span>
+<span>DB Write: <span class="text-error">145ms</span> (Spike)</span>
+</div>
+</div>
+<!-- Abuse Detection -->
+<div class="glass-panel rounded-xl p-6 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-error">gavel</span> Moderation
+                        </h3>
+<span class="bg-error/20 text-error font-label-caps text-label-caps px-2 py-1 rounded">3 ALERTS</span>
+</div>
+<div class="space-y-3 flex-1 overflow-y-auto">
+<!-- Alert Item -->
+<div class="bg-surface-container/40 border border-error/20 rounded-lg p-3 hover:bg-surface-container/60 transition-colors">
+<div class="flex justify-between items-start mb-1">
+<span class="font-code-sm text-code-sm text-error">ERR_DMCA_STRIKE</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">2m ago</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">Node <span class="text-primary">#x9f2</span> reported for hosting illicit content signatures.</p>
+<div class="mt-3 flex gap-2">
+<button class="flex-1 bg-surface-container-highest hover:bg-error hover:text-on-error text-on-surface font-label-caps text-label-caps py-1.5 rounded transition-colors">BAN NODE</button>
+<button class="flex-1 bg-surface-container-highest hover:bg-surface-variant text-on-surface font-label-caps text-label-caps py-1.5 rounded transition-colors">IGNORE</button>
+</div>
+</div>
+<!-- Alert Item -->
+<div class="bg-surface-container/40 border border-outline/10 rounded-lg p-3 hover:bg-surface-container/60 transition-colors">
+<div class="flex justify-between items-start mb-1">
+<span class="font-code-sm text-code-sm text-secondary">WARN_TRAFFIC_SPIKE</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">14m ago</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">User <span class="text-primary">@omega_dev</span> exceeding API rate limits by 400%.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Global User Management Table -->
+<div class="glass-panel rounded-xl overflow-hidden flex flex-col">
+<div class="p-6 border-b border-outline/10 flex justify-between items-center bg-surface-container-lowest/50">
+<h3 class="font-headline-md text-headline-md text-on-surface">User Quotas &amp; Management</h3>
+<button class="text-primary hover:text-primary-fixed transition-colors font-label-caps text-label-caps flex items-center gap-1">
+                        VIEW ALL <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline/10 font-label-caps text-label-caps text-on-surface-variant bg-surface-container/20">
+<th class="p-4 font-medium">User / ID</th>
+<th class="p-4 font-medium">Plan</th>
+<th class="p-4 font-medium">Storage Quota</th>
+<th class="p-4 font-medium">Status</th>
+<th class="p-4 font-medium text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm divide-y divide-outline/5">
+<tr class="hover:bg-surface-container-high/30 transition-colors group">
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center text-on-primary font-bold text-xs">
+                                        AZ
+                                    </div>
+<div>
+<div class="text-on-surface font-medium">Alice Z.</div>
+<div class="font-code-sm text-[11px] text-on-surface-variant">usr_892nf92</div>
+</div>
+</td>
+<td class="p-4"><span class="px-2 py-1 bg-surface-container rounded font-label-caps text-label-caps text-secondary">PRO</span></td>
+<td class="p-4">
+<div class="flex items-center gap-3 max-w-[200px]">
+<div class="flex-1 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[45%]"></div>
+</div>
+<span class="font-code-sm text-[12px] text-on-surface-variant w-16">450/1000G</span>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 font-code-sm text-[11px] px-2 py-0.5 rounded-full border border-outline/20 bg-surface-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_8px_var(--tw-colors-secondary)]"></span> Active
+                                    </span>
+</td>
+<td class="p-4 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors group">
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant font-bold text-xs">
+                                        JD
+                                    </div>
+<div>
+<div class="text-on-surface font-medium">John D.</div>
+<div class="font-code-sm text-[11px] text-on-surface-variant">usr_102nf88</div>
+</div>
+</td>
+<td class="p-4"><span class="px-2 py-1 bg-surface-container rounded font-label-caps text-label-caps text-on-surface-variant">FREE</span></td>
+<td class="p-4">
+<div class="flex items-center gap-3 max-w-[200px]">
+<div class="flex-1 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-error w-[98%] shadow-[0_0_8px_var(--tw-colors-error)]"></div>
+</div>
+<span class="font-code-sm text-[12px] text-error w-16">49/50G</span>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 font-code-sm text-[11px] px-2 py-0.5 rounded-full border border-error/30 bg-error/10 text-error">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Limit
+                                    </span>
+</td>
+<td class="p-4 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- System Logs Filter Dashboard -->
+<div class="glass-panel rounded-xl p-0 flex flex-col overflow-hidden border-outline/20">
+<div class="p-4 border-b border-outline/10 bg-surface-container-lowest/80 flex flex-wrap items-center justify-between gap-4">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant">terminal</span> System Logs
+                    </h3>
+<div class="flex gap-2 font-label-caps text-label-caps">
+<select class="bg-surface-container border-outline/20 rounded text-on-surface py-1 px-2 text-xs focus:ring-primary focus:border-primary">
+<option>ALL LEVELS</option>
+<option>ERROR</option>
+<option>WARN</option>
+<option>INFO</option>
+</select>
+<select class="bg-surface-container border-outline/20 rounded text-on-surface py-1 px-2 text-xs focus:ring-primary focus:border-primary">
+<option>ALL NODES</option>
+<option>EU-WEST</option>
+<option>US-EAST</option>
+</select>
+</div>
+</div>
+<div class="p-4 bg-surface-container-lowest h-64 overflow-y-auto font-code-sm text-code-sm space-y-2 selection:bg-outline/30">
+<div class="flex gap-4 hover:bg-surface-container/50 px-2 py-1 rounded transition-colors">
+<span class="text-outline w-24 shrink-0">14:02:45.102</span>
+<span class="text-secondary w-12 shrink-0">[INFO]</span>
+<span class="text-on-surface-variant break-all">Node <span class="text-primary">eu-west-04</span> completed garbage collection (freed 4.2TB).</span>
+</div>
+<div class="flex gap-4 hover:bg-surface-container/50 px-2 py-1 rounded transition-colors">
+<span class="text-outline w-24 shrink-0">14:02:44.891</span>
+<span class="text-on-surface-variant w-12 shrink-0">[WARN]</span>
+<span class="text-on-surface-variant break-all">High latency detected on route <span class="text-primary">tg-api-gateway-1</span> (450ms).</span>
+</div>
+<div class="flex gap-4 hover:bg-surface-container/50 px-2 py-1 rounded transition-colors bg-error/5 border-l-2 border-error">
+<span class="text-outline w-24 shrink-0">14:02:41.002</span>
+<span class="text-error w-12 shrink-0">[ERR]</span>
+<span class="text-on-error-container break-all">Failed to commit transaction <span class="text-error">tx_9982nd</span> to distributed ledger. Retrying (1/3)...</span>
+</div>
+<div class="flex gap-4 hover:bg-surface-container/50 px-2 py-1 rounded transition-colors">
+<span class="text-outline w-24 shrink-0">14:02:39.115</span>
+<span class="text-secondary w-12 shrink-0">[INFO]</span>
+<span class="text-on-surface-variant break-all">User session <span class="text-primary">usr_102nf88</span> authenticated successfully via Telegram SSO.</span>
+</div>
+<div class="flex gap-4 hover:bg-surface-container/50 px-2 py-1 rounded transition-colors">
+<span class="text-outline w-24 shrink-0">14:02:30.000</span>
+<span class="text-secondary w-12 shrink-0">[INFO]</span>
+<span class="text-on-surface-variant break-all">Cron job <span class="text-primary">hourly_metrics_rollup</span> executed in 1.2s.</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest text-secondary dark:text-secondary relative w-full py-12 border-t border-outline/10 flat flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-max-width mx-auto gap-gutter z-10 mt-auto">
+<div class="font-label-caps text-label-caps text-on-surface-variant">
+                © 2024 ParallelogramDrive. Distributed Infrastructure secured by Telegram.
+            </div>
+<div class="flex flex-wrap gap-4 font-body-sm text-body-sm text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Network Status</a>
+<a class="hover:text-primary transition-colors" href="#">API Docs</a>
+<a class="hover:text-primary transition-colors" href="#">GitHub</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</footer>
+</div>
+</body></html>
