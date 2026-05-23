@@ -18,3 +18,14 @@ model File {
   isPublic    Boolean  @default(false)
   createdAt   DateTime @default(now())
 }
+
+model ApiKey {
+  id        String    @id @default(cuid())
+  userId    String
+  key       String    @unique
+  name      String
+  type      String    // "production" or "test"
+  createdAt DateTime  @default(now())
+  lastUsed  DateTime?
+}
+
