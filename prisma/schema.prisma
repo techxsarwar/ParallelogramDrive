@@ -17,6 +17,18 @@ model File {
   mimeType    String
   isPublic    Boolean  @default(false)
   createdAt   DateTime @default(now())
+  shards      Shard[]
+}
+
+model Shard {
+  id          String   @id @default(cuid())
+  fileId      String
+  file        File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  shardIndex  Int
+  telegramId  String
+  messageId   String
+  size        Int
+  dcName      String
 }
 
 model ApiKey {

@@ -10,9 +10,16 @@ export async function GET(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const files = await db.file.findMany({
+        const files = await db.file.findMany({
       where: {
         userId,
+      },
+      include: {
+        shards: {
+          orderBy: {
+            shardIndex: 'asc'
+          }
+        }
       },
       orderBy: {
         createdAt: 'desc'
