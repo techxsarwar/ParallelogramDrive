@@ -16,32 +16,35 @@ export async function uploadFileToTelegram(buffer: Buffer, fileName: string) {
     throw new Error('TELEGRAM_CHAT_ID is not defined in environment variables');
   }
 
+  // Cast to any immediately — Telegraf's strict return type doesn't expose
+  // all possible media fields (video, audio, animation, etc.) even though
+  // Telegram can return them depending on the file type sent.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const result = await bot.telegram.sendDocument(process.env.TELEGRAM_CHAT_ID, {
     source: buffer,
     filename: fileName,
-  });
+  }) as any;
 
-  // Telegram may return different media types depending on the file.
-  // Extract file_id from whichever type was returned.
+  // Extract file_id from whichever media type Telegram returned.
   let fileId: string | undefined;
 
-  if ('document' in result && result.document) {
+  if (result.document) {
     fileId = result.document.file_id;
-  } else if ('photo' in result && result.photo) {
-    // Photos are returned as an array; take the highest resolution
-    const photos = result.photo as any[];
+  } else if (result.photo) {
+    // Photos come as an array; highest resolution is last
+    const photos: any[] = result.photo;
     fileId = photos[photos.length - 1]?.file_id;
-  } else if ('video' in result && result.video) {
+  } else if (result.video) {
     fileId = result.video.file_id;
-  } else if ('audio' in result && result.audio) {
+  } else if (result.audio) {
     fileId = result.audio.file_id;
-  } else if ('animation' in result && result.animation) {
+  } else if (result.animation) {
     fileId = result.animation.file_id;
-  } else if ('voice' in result && result.voice) {
+  } else if (result.voice) {
     fileId = result.voice.file_id;
-  } else if ('video_note' in result && result.video_note) {
+  } else if (result.video_note) {
     fileId = result.video_note.file_id;
-  } else if ('sticker' in result && result.sticker) {
+  } else if (result.sticker) {
     fileId = result.sticker.file_id;
   }
 
@@ -51,7 +54,7 @@ export async function uploadFileToTelegram(buffer: Buffer, fileName: string) {
   }
 
   return {
-    messageId: result.message_id.toString(),
+    messageId: String(result.message_id),
     fileId,
   };
 }
