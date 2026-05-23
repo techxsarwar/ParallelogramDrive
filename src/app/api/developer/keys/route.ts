@@ -38,12 +38,13 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { name, type } = body;
 
-    if (!name || !type || (type !== "production" && type !== "test")) {
+    const VALID_TYPES = ["production", "development", "readonly", "test"];
+    if (!name || !type || !VALID_TYPES.includes(type)) {
       return new NextResponse("Invalid request body", { status: 400 });
     }
 
     // Generate prefix-based professional key
-    const prefix = type === "production" ? "pd_live" : "pd_test";
+    const prefix = type === "production" ? "pd_live" : type === "readonly" ? "pd_ro" : "pd_test";
     const secureToken = crypto.randomBytes(24).toString("hex");
     const key = `${prefix}_${secureToken}`;
 
