@@ -21,7 +21,11 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "ParallelogramDrive | The Geometry of Infinite Storage",
-  description: "Distributed infrastructure secured by Telegram.",
+  description: "Distributed infrastructure secured by Telegram. Upload once, distribute globally.",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -33,12 +37,13 @@ export default function RootLayout({
     <ClerkProvider>
       <html
         lang="en"
-        className={`${inter.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} h-full antialiased dark`}
+        className={`${inter.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
       >
         <head>
           <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+          <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         </head>
-        <body className={`text-on-background min-h-screen flex flex-col font-body-sm selection:bg-yellow-500 selection:text-black overflow-x-hidden bg-[#030307]`}>
+        <body className="text-on-background min-h-screen flex flex-col font-body-sm overflow-x-hidden bg-white">
           {children}
         </body>
       </html>
