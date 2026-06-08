@@ -293,7 +293,7 @@ curl -X POST ...
 
 ## License
 
-MIT © [techxsarwar](https://github.com/techxsarwar)
+GNU © [Sarwar Altaf Dar](https://github.com/techxsarwar),[Burhan Hamid Dar](https://github.com/burhanhamiddar) & [Parallelogram]
 
 ---
 
